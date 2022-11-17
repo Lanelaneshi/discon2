@@ -20,11 +20,7 @@ let player1Img;
 let player2Img;
 let bg
 var song1
-// var song2
-// var slider
-// let c
-// let reverb
-// let delay
+let volumeMultiplier =0.5; 
 
 
 //load bg
@@ -54,6 +50,15 @@ document.getElementById('buttonID').addEventListener('click', () =>{
   // }
 })
 
+//slider
+var slider = document.getElementById("myRange");
+
+var setVolume = function(){
+  volumeMultiplier = this.value / 100;
+};
+
+slider.addEventListener('change',setVolume);
+// volumeControl.addEventListener('input',setVolume);
 
 
 
@@ -148,7 +153,7 @@ function calcDistance(users) {
 
   }
 
-  song1.volume(mapDistance);
+  song1.volume(mapDistance*volumeMultiplier);
   console.log(song1.volume);
   // what we are mapping here is distance mapping to volume, map(value, start1, stop1, start2, stop2) 
 

@@ -20,11 +20,7 @@ let player1Img;
 let player2Img;
 let bg
 var song1
-// var song2
-// var slider
-// let c
-// let reverb
-// let delay
+let volumeMultiplier =0.5; 
 
 
 //load bg
@@ -40,37 +36,24 @@ function preload() {
 
 //get button to trigger the song
 document.getElementById('buttonID').addEventListener('click', () =>{
-  // function mousePressed() {
-  //   // song1.play()
+
     song1.loop()
-    // if (song1.isPlaying()) {
-    //   song1.pause()
-    // } else {
-    //   song1.play()
   
-    // }
-    // song1.volume(0.1);
-  
-  // }
 })
 
 
+
+
+//slider
 var slider = document.getElementById("myRange");
-var output = document.getElementById("song1");
-output.innerHTML = slider.value; // Display the default slider value
 
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-  output.innerHTML = this.value;
-} 
+var setVolume = function(){
+  volumeMultiplier = this.value / 100;
+};
 
-// var volumeControl = document.getElementById('myRange');
-// var setVolume = function(){
-//   song1.volume = this.value / 100;
-// };
-
-// volumeControl.addEventListener('change',setVolume);
+slider.addEventListener('change',setVolume);
 // volumeControl.addEventListener('input',setVolume);
+
 
 
 
@@ -163,7 +146,7 @@ function calcDistance(users) {
 
   }
 
-  song1.volume(mapDistance);
+  song1.volume(mapDistance*volumeMultiplier);
   // what we are mapping here is distance mapping to volume, map(value, start1, stop1, start2, stop2) 
 
 }
