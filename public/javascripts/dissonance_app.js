@@ -23,7 +23,7 @@ socket.on('userID', function (socketId) {
 
 // listen for what your socket ID is so you know who you are in the object
 socket.on('disCount', function (disCount) {
-  if (disCount<2) {
+  if (disCount < 2) {
     joinDis.style.visibility = "visible";
   } else {
     joinDis.style.visibility = "hidden";
@@ -38,6 +38,7 @@ socket.on('playerStatus', function (playerStatus) {
 
 function joinRoom() {
   socket.emit('joinRoom', "dis");
+  joinDis.style.visibility = "hidden";
 }
 
 
@@ -46,10 +47,10 @@ let player1Img;
 let player2Img;
 let bg
 var song1
-let volumeMultiplier =0.5; 
+let volumeMultiplier = 0.5;
 
 
-//load bg
+
 function preload() {
   bg = loadImage("/images/background/background_night.jpg");
   player1Img = loadImage("/images/monster.gif");
@@ -61,10 +62,10 @@ function preload() {
 }
 
 //get button to trigger the song
-document.getElementById('buttonID').addEventListener('click', () =>{
+document.getElementById('buttonID').addEventListener('click', () => {
 
-    song1.loop()
-  
+  song1.loop()
+
 })
 
 
@@ -73,11 +74,11 @@ document.getElementById('buttonID').addEventListener('click', () =>{
 //slider
 var slider = document.getElementById("myRange");
 
-var setVolume = function(){
+var setVolume = function () {
   volumeMultiplier = this.value / 100;
 };
 
-slider.addEventListener('change',setVolume);
+slider.addEventListener('change', setVolume);
 // volumeControl.addEventListener('input',setVolume);
 
 
@@ -85,18 +86,10 @@ slider.addEventListener('change',setVolume);
 
 function setup() {
 
-  // console.log(bg);
-  // let bg;
-  // bg = loadImage('/background/background_night.jpg');
-
-
-  // createCanvas(windowWidth, windowHeight);
-  // background(220);
-
-
   const myCanvas = createCanvas(windowWidth, windowHeight)
   myCanvas.parent('canvas-container')
-
+  background(bg);
+  fill(225, 0, 0);
   // img = loadImage('background/background_night.jpg')
 
 
@@ -117,7 +110,7 @@ function setup() {
 
     background(bg);
     fill(225, 0, 0);
-    
+
 
     for (i = 0; i < users.length; i++) {
       push()
@@ -143,8 +136,8 @@ function setup() {
 
 
 function mouseMoved() {
-  if (myStatus == "Playing"){
-      //Grab mouse position
+  if (myStatus == "Playing") {
+    //Grab mouse position
     let mousePos = { x: mouseX, y: mouseY, id: socket.id };
     //Send mouse position object to the server
     socket.emit('dataDis', mousePos);
@@ -175,7 +168,7 @@ function calcDistance(users) {
 
   }
 
-  song1.volume(mapDistance*volumeMultiplier);
+  song1.volume(mapDistance * volumeMultiplier);
   // what we are mapping here is distance mapping to volume, map(value, start1, stop1, start2, stop2) 
 
 }
